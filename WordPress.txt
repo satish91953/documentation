@@ -1,0 +1,54 @@
+ubuntu@ip-172-31-33-194:/var/www/html$ history
+    1  sudo apt updaye -y
+    2  sudo apt update -y
+    3  sudo apt upgrade
+    4  clear
+    5  sudo apt install apache2 -y
+    6  sudo systemctl status apache2
+    7  sudo systemctl start apache2
+    8  sudo systemctl enable apache2
+    9  sudo apt install mariadb-server mariadb-client -y
+   10  clear
+   11  sudo systemctl start mariadb
+   12  sudo systemctl status mariadb
+   13  clear
+   14  sudo mysql_secure_installation
+pass , y y y y 
+
+   15  sudo sysemctl restart mariadb
+   16  sudo systemctl restart mariadb
+   17  clear
+   18  sudo apt install php php-mysql php-gd php-cli php-common -y
+   19  sudo apt install wget unzip -y
+   20  sudo wget https://wordpress.org/latest.zip
+   21  ls
+   22  clear
+   23  sudo unzip latest.zip 
+   24  ls
+   25  cd wordpress/
+   26  ls
+   27  cd ..
+   28  sudo cp -r wordpress/* /var/www/html/
+   29  cd /vae/www/html/
+   30  cd /var/www/html/
+   31  ls
+   32  sudo chown www-data:www-data -R /var/www/html/
+   33  ll
+   34  ls
+   35  sudo rm -rf index.html
+   36  clear
+   37  sudo mysql -u root -p
+create database firstpillar;
+create user "wpadmin"@"%" identified by "wpadminpass";
+grant all privileges on firstpillar.* to "wpadmin"@"%";
+exit
+   38  history
+ubuntu@ip-172-31-33-194:/var/www/html$ 
+
+
+
+http://3.108.144.29/wp-admin/
+http://43.204.112.177/wp-admin/
+username- wpadmin
+password- wpadminpass
+
