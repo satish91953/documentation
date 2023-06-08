@@ -1,0 +1,95 @@
+NGINX Web App Project
+
+--> What is NGINX:-
+	A simple web server to serve web files
+	1. Reverse proxy
+	2. Load balancing
+	3. URL redirection 
+	4. Indexing 
+	5. Caching
+--> Hands ON:-
+	1. create a EC2 instance (ubuntu)
+		1. allow ssh
+		2. allow HTTPS traffic from the internet
+		3. allow HTTP trffic from the intenet
+	2. start instance and connet
+		1. sudo apt-get update
+		2. sudo apt install nginx
+		3. systemctl status nginx 
+		4. if u want to restart- systemctl restart nginx- and asking for password 
+		     than use this- sudo systemctl restart nginx
+		5. to test nginx is running or not- use public ip and paste it to browser
+		     nginx uses port by default- 80
+		6. serve directory- /var/www/html
+
+how and why nginx do the thing-
+	1. configuratin file or path- /etc/nginx
+		->nginx.conf (do not mdify)
+		->sites-available (in this configuration is not enable)
+		->sites-enabled (in this configuration site will enabled)
+			configuration of port, path of web site
+create an index.html at /var/www/html and paste content of website(this is a basic wb page)
+
+			LIVE PROJECT
+-url of project- https://github.com/LondheShubham153/django-notes-app
+	-git clone https://github.com/LondheShubham153/django-notes-app
+	-cd django-notes-app
+	-use list command
+	-cd django-notes-app/
+install docker
+	-sudo apt install docker.io
+	-to check docker is running- docker ps -(this will show permission denied,due to user doesn't have permission for use docker)
+		to add user in docker group- sudo usermod -aG docker $USER
+			-aG docker => add a user to docker group
+			-$USER => current logged in user
+	 -sudo reboot (aith for 1min)
+	- docker ps (no error after above step, we gives the permission to a particular user)
+	-docker build -t notes-app .(from readme file) this will build the docker file, This make the container(image)
+	-container build or run- docker run -d -p 8000:8000 notes-app:latest
+			-d detached mode(background)
+			-p port 
+			8000:8000 (our port + image port) mapped
+	-docker ps(to check application is up or not)
+But as a DevOps - i dont want to expose port 8000
+	     - run through reverse proxy
+	     curl -L http://127.0.0.1:8000(run on local host, not accesseble for others)
+cd
+cd etc/nginx/sites-enabled
+add the changes in default configuration file (as a root user, use sudo)
+	on location / add
+		proxy_pass http://127.0.0.1:8000; (in the condition / it will proxy the mention url internally)
+sudo systemctl restart nginx (nessesary after change)
+	after this refresh the browser and showing a wblank white screen because of our path /var/www/html/ which is empty
+copy all the staticfiles of frontend  to the directory- var/www/html/
+	cd django-notes-app/mynotes/builds/
+	sudo cp -r(recurssively)*(all files) /vr/www/html/
+
+
+NOTE***	refresh browser (if still showing blank screen ) ==> open inspect element >> console(this will show the error) then make a directory named staticfile and copy all the content in it
+	troubleshoot (inspect >> console)
+
+
+			BACKEND (database connect)
+check weather backend is running or not
+	curl -L http:// 127.0.0.1:8000/api (but runs on local host) and app is on instance public ip
+to overcome this-- i have to add proxy pass(reverse proxy) of local host 
+	cd /etc/nginx/sites-enabled/default
+	sudo vim default (and add new location config. below location /) like below-
+		location /api {
+			proxy -pass http://127.0.0.1:8000/api;
+		}
+restart nginx - sudo systemctl restart ngnix
+NOW BACKEND AND FRONTEND ARE CONNECTED
+
+		
+			RUN THROUGH DNS
+link ip address to the domain
+buy a domain 
+	login and add [C NAME] record in DNS Management >> DNS Record
+we use sub domain
+	link ip address to the domain
+	login and add [A] record in DNS Management >> DNS Record
+	in value coulmn paste server ip
+
+	
+

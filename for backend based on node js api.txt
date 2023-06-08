@@ -1,0 +1,16 @@
+1. create an ec2 instance(ubuntu)
+2. use default security group
+3. ssh login 
+4. mkdir project
+5. cd project/
+6. sudo -i
+7. apt update
+8. apt install git -y
+9. search node js install on google
+10. git clone url
+11. id & pass
+12. cd 
+13. nano server.js (check the listen port or you can configure listen port)
+14. node server.js (run server.js)
+
+mongoDB atlas
